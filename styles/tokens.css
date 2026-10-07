@@ -1,0 +1,27 @@
+/* Design units are pixels at the 1080p reference. 720p renders the same layout scaled. */
+:root {
+  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --text-display: 96px;
+  --text-title: 64px;
+  --text-body: 40px;
+  --text-small: 28px;
+  --text-code: 32px;
+
+  --leading-display: 1.05;
+  --leading-body: 1.4;
+  --tracking-display: -0.02em;
+
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-6: 48px;
+  --space-8: 64px;
+  --space-12: 96px;
+  --space-16: 128px;
+
+  --radius: 12px;
+  --stroke: 3px;
+}

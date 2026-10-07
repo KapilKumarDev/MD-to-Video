@@ -1,0 +1,31 @@
+{
+  "name": "md2video",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=26.10.0"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "check:files": "node scripts/check-files.ts",
+    "check": "tsc --noEmit && eslint --max-warnings 0 . && knip && vitest run && npm run check:files && npm audit"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/mdast": "4.0.4",
+    "@types/node": "22.20.5",
+    "eslint": "10.12.0",
+    "knip": "6.40.0",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.1",
+    "vitest": "5.0.3"
+  },
+  "dependencies": {
+    "mdast-util-to-string": "4.0.0",
+    "remark-frontmatter": "5.0.0",
+    "remark-parse": "11.0.0",
+    "unified": "11.0.5",
+    "yaml": "2.9.1"
+  }
+}

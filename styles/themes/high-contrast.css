@@ -1,0 +1,12 @@
+:root[data-theme="high-contrast"] {
+  --bg: #0a0a0a;
+  --surface: #141414;
+  --fg: #ffffff;
+  --fg-muted: #d4d4d4;
+  --accent: #ffd60a;
+  --on-accent: #0a0a0a;
+  --border: #ffffff;
+  --danger: #ff6b6b;
+  --chart-2: #ffffff;
+  --chart-3: #a3a3a3;
+}

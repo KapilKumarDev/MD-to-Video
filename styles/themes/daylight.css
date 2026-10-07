@@ -1,0 +1,12 @@
+:root[data-theme="daylight"] {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --fg: #0f172a;
+  --fg-muted: #475569;
+  --accent: #15803d;
+  --on-accent: #ffffff;
+  --border: #cbd5e1;
+  --danger: #b91c1c;
+  --chart-2: #334155;
+  --chart-3: #64748b;
+}

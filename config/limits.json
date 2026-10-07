@@ -1,0 +1,15 @@
+{
+  "scriptBytes": 1048576,
+  "scenes": 200,
+  "narrationCharsPerScene": 3000,
+  "narrationCharsPerScript": 100000,
+  "csvRows": 200,
+  "codeLines": 150,
+  "listItems": 6,
+  "imageBytes": 20971520,
+  "imageMaxWidth": 8000,
+  "imageMaxHeight": 8000,
+  "musicBytes": 52428800,
+  "musicSeconds": 3600,
+  "videoSeconds": 3600
+}

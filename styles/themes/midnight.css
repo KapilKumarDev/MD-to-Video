@@ -1,0 +1,12 @@
+:root[data-theme="midnight"] {
+  --bg: #020617;
+  --surface: #0e1223;
+  --fg: #f8fafc;
+  --fg-muted: #94a3b8;
+  --accent: #22c55e;
+  --on-accent: #020617;
+  --border: #334155;
+  --danger: #f87171;
+  --chart-2: #cbd5e1;
+  --chart-3: #64748b;
+}
