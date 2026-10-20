@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { parse } from '../../src/parse/index.ts';
+import { HEADING_NAMES, THEME_DEFAULTS } from '../../src/parse/schema.ts';
 import { ScriptError } from '../../src/types.ts';
 
 const ctx = { file: 'talk.md', root: '/project' };
@@ -203,5 +204,91 @@ describe('parse: input shape', () => {
 
   it('keeps line numbers the same with Windows line endings', () => {
     expect(failure('## A\r\nHi.\r\n\r\n## B\r\n').line).toBe(4);
+  });
+});
+
+describe('parse: heading attributes', () => {
+  const sceneWith = (attributes: string) => parse(`## T {${attributes}}\nHi.\n`, ctx).scenes[0];
+  const failWith = (attributes: string): string =>
+    failure(`## One\nHi.\n\n## T {${attributes}}\nHi.\n`).message;
+  const everyName = Object.values(HEADING_NAMES).flat();
+
+  it('reads the USAGE example and strips the attributes from the title', () => {
+    const scene = parse(
+      '## Scene title {entrance=kinetic emphasis=highlight-sweep transition=slide-left}\nHi.\n',
+      ctx,
+    ).scenes[0];
+
+    expect(scene).toMatchObject({
+      title: 'Scene title',
+      entrance: 'kinetic',
+      emphasis: 'highlight-sweep',
+      transition: 'slide-left',
+      bg: 'gradient-drift',
+    });
+  });
+
+  describe.each(Object.entries(HEADING_NAMES))('%s', (key, names) => {
+    it.each(names)('accepts %s', (name) => {
+      expect(sceneWith(`${key}=${name}`)).toMatchObject({ [key]: name });
+    });
+
+    it('rejects a name from another place and lists the valid ones', () => {
+      const foreign = everyName.find((name) => !names.some((valid) => valid === name)) ?? '';
+
+      expect(failWith(`${key}=${foreign}`)).toBe(
+        `talk.md: line 4: "${foreign}" is not valid for ${key}; valid: ${names.join(', ')}`,
+      );
+    });
+  });
+
+  it('lists the entrance names in the order USAGE gives them', () => {
+    expect(failWith('entrance=typing')).toBe(
+      'talk.md: line 4: "typing" is not valid for entrance; valid: typewriter, word-fade, kinetic, letter-drop, scale-pop, slide-up',
+    );
+  });
+
+  it.each(Object.entries(THEME_DEFAULTS))('keeps %s defaults inside the valid names', (_theme, defaults) => {
+    expect(HEADING_NAMES.entrance).toContain(defaults.entrance);
+    expect(HEADING_NAMES.transition).toContain(defaults.transition);
+    expect(HEADING_NAMES.bg).toContain(defaults.bg);
+  });
+
+  it.each([['1'], ['3'], ['1.5'], ['60']])('accepts hold=%s on a silent scene', (hold) => {
+    const scene = parse(`## Pause {hold=${hold}}\n`, ctx).scenes[0];
+
+    expect(scene).toMatchObject({ title: 'Pause', narration: '', hold: Number(hold) });
+  });
+
+  it.each(['0', '61', 'abc', '-2', '1e2'])('rejects hold=%s', (hold) => {
+    expect(failWith(`hold=${hold}`)).toBe(
+      `talk.md: line 4: "hold" must be a number from 1 to 60, got "${hold}"`,
+    );
+  });
+
+  it('rejects an unknown attribute and lists the valid ones', () => {
+    expect(failWith('colour=red')).toBe(
+      'talk.md: line 4: unknown heading attribute "colour"; valid: entrance, emphasis, transition, bg, hold',
+    );
+  });
+
+  it('rejects an attribute that is not written key=value', () => {
+    expect(failWith('kinetic')).toBe(
+      'talk.md: line 4: heading attribute "kinetic" must be written key=value',
+    );
+  });
+
+  it('rejects an attribute given twice', () => {
+    expect(failWith('bg=none bg=particles')).toBe(
+      'talk.md: line 4: heading attribute "bg" is given twice',
+    );
+  });
+
+  it('rejects a heading that is only attributes', () => {
+    expect(failure('## {hold=3}\n').message).toBe('talk.md: line 1: scene has no title');
+  });
+
+  it('keeps braces that are not at the end of the title', () => {
+    expect(parse('## Use {x} well\nHi.\n', ctx).scenes[0]?.title).toBe('Use {x} well');
   });
 });

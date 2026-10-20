@@ -6,6 +6,7 @@ import { unified } from 'unified';
 import { ScriptError } from '../types.ts';
 import type { Deck, Scene } from '../types.ts';
 import { loadMeta } from './frontmatter.ts';
+import { parseHeading } from './heading.ts';
 import { DEFAULT_EMPHASIS, THEME_DEFAULTS } from './schema.ts';
 
 const processor = unified().use(remarkParse).use(remarkFrontmatter, ['yaml']);
@@ -42,7 +43,7 @@ export function parse(markdown: string, ctx: { file: string; root: string }): De
       if (node.depth !== 2) {
         fail(line, `"${'#'.repeat(node.depth)}" headings are not scenes; start a scene with "##"`);
       }
-      const title = toString(node).trim();
+      const { title, attributes } = parseHeading(toString(node).trim(), ctx.file, line);
       if (title === '') fail(line, 'scene has no title');
       requireLength(scene);
       scenes.push({
@@ -55,6 +56,7 @@ export function parse(markdown: string, ctx: { file: string; root: string }): De
         transition: defaults.transition,
         bg: defaults.bg,
         blocks: [],
+        ...attributes,
       });
     } else if (node.type !== 'paragraph') {
       fail(line, `${node.type} is not supported in a scene; narration is plain paragraphs`);

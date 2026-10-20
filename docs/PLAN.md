@@ -71,7 +71,7 @@ Inputs the spec implies but no checklist item pins. Each gets a test in the task
 - [ ] Implement with `unified` + `remark-parse` + `remark-frontmatter` + `yaml`. Defaults come from `schema.ts`.
 
 ### Task 2: Heading attributes (P3, P4)
-**Files:** modify `schema.ts`, `parse/index.ts`; create `parse/blocks.ts` (heading part only), tests.
+**Files:** modify `schema.ts`, `parse/index.ts`; create `parse/heading.ts`, tests.
 **Produces:** `schema.ts` exports the one list of animation names per place (USAGE 4.4). Tests are generated from it.
 - [ ] Generated test: every valid value accepted, every invalid value rejected.
 - [ ] Test: wrong-place name error lists the valid names for that place.

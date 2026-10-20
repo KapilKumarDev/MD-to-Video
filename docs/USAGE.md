@@ -83,6 +83,8 @@ Heading attributes (all optional):
 | `bg` | `gradient-drift`, `particles`, `grid-pulse`, `waveform`, `none` | theme default | Background animation. `waveform` reacts to the narration audio |
 | `hold` | seconds, 1 to 60 | none | Minimum length. Required for silent scenes |
 
+Write the attributes in one `{...}` group at the very end of the heading, separated by spaces, as `key=value` with no quotes. An unknown or repeated key fails, and so does a name from the wrong place. Braces anywhere else are part of the title.
+
 Why only one entrance and one emphasis: every animation has to communicate something, so effects do not pile up.
 
 ### 4.3 Visual blocks

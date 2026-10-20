@@ -26,6 +26,17 @@ export const THEME_DEFAULTS = {
   'high-contrast': { entrance: 'word-fade', transition: 'fade', bg: 'none' },
 } as const satisfies Record<Theme, { entrance: string; transition: string; bg: string }>;
 
+/** The one list of valid names per heading attribute (USAGE 4.4). `none` switches an effect off. */
+export const HEADING_NAMES = {
+  entrance: ['typewriter', 'word-fade', 'kinetic', 'letter-drop', 'scale-pop', 'slide-up'],
+  emphasis: ['highlight-sweep', 'wave', 'glitch', 'none'],
+  transition: ['fade', 'slide-left', 'slide-right', 'wipe', 'flip', 'clock-wipe', 'zoom', 'none'],
+  bg: ['gradient-drift', 'particles', 'grid-pulse', 'waveform', 'none'],
+} as const;
+
+/** Allowed `hold` length in seconds (USAGE 4.2). */
+export const HOLD_SECONDS = { min: 1, max: 60 } as const;
+
 interface Rule {
   expected: string;
   accepts: (value: unknown) => boolean;

@@ -9,8 +9,8 @@ Last updated: 2026-10-07
 | 1 | Research | done (Remotion audio and license, Piper status, sandbox limits) |
 | 2 | Plan | done (this docs set). SPEC approved 2026-10-07. [PLAN](PLAN.md) written, waiting on your review |
 | 3 | Design | done (tokens and themes approved 2026-10-07) |
-| 4 | Implement | in progress: Tasks 0 and 1 done, Task 2 not started |
-| 5 | Test | in progress: 44 unit tests green (5 inventory, 39 parse), `npm audit` clean. `knip` has not run since Task 0 (sandbox cannot run it) |
+| 4 | Implement | in progress: Tasks 0 to 2 done, Task 3 not started |
+| 5 | Test | in progress: 90 unit tests green (5 inventory, 85 parse), `npm audit` clean. `knip` has not run since Task 0 (sandbox cannot run it) |
 | 6 | Fix | not started |
 | 7 | Repeat | not started |
 | 8 | Present | not started |
@@ -28,7 +28,9 @@ Last updated: 2026-10-07
 - 2026-10-07: Task 0 scaffold. TypeScript pinned to 6.0.3 (typescript-eslint 8.71.1 supports below 6.1; 7.0.2 is newest). `scripts/check-files.ts` built test-first in 5 red/green slices. `npm run check` passes every step except `check:files`, which found the theme files flat in `styles/` while SPEC and FILES say `styles/themes/`. Moved them (decision A). `knip.json` deferred to Task 8.
 - 2026-10-07: Task 1 parse, test-first in three slices. Added `unified` 11.0.5, `remark-parse` 11.0.0, `remark-frontmatter` 5.0.0, `yaml` 2.9.1, `mdast-util-to-string` 4.0.0 and `@types/mdast` 4.0.4, all exact. `parse` now returns scenes with narration and theme defaults, and loads frontmatter with one rule per key. Covered: P2 (every key, valid and invalid), P5 (line asserted on every error), P6, and from P7 the unknown key and `#` heading cases. Left for later tasks: heading attributes and `hold` (Task 2), blocks and the unknown directive and missing `alt` cases (Task 3), assets and hostile input (Task 4). So P1, P3, P4 and P7 stay unticked. Review focus 1 and 3 (Windows line endings, byte-order mark, empty and frontmatter-only files) are tested. Decisions beyond the plan: `###` and deeper headings are rejected like `#`, any other content inside a scene (list, code fence, raw HTML) is rejected instead of ignored, text before the first scene is rejected. These are now in USAGE 4.2. Types are `interface` rather than `type` because the lint config requires it.
 - 2026-10-07: Verification in the sandbox: `tsc`, `eslint --max-warnings 0`, `vitest run` (44 tests), `check:files` and `npm audit` pass. `knip` crashes here because its parser cannot allocate its working buffer, so it is unverified. Checked by hand instead that every export is used outside its own file.
+- 2026-10-07: Task 2 heading attributes, test-first. Tests are generated from `HEADING_NAMES` in `schema.ts`: every valid name accepted, a name from another place rejected with that place's valid names listed (P4), plus `hold` range, unknown, repeated and malformed attributes. P2 and P6 ticked in CHECKLIST. P3 and P4 stay open for the block half (Task 3). Deviation from PLAN: the heading parser is `src/parse/heading.ts`, not `blocks.ts`, because `blocks.ts` is for blocks. PLAN updated. `HEADING_NAMES` includes `none` where USAGE allows it, so the Task 15 coverage check must skip `none`.
+- 2026-10-07: Verification in the sandbox after Task 2: `tsc`, `eslint --max-warnings 0` and `vitest run` (90 tests) pass. `knip` still cannot run here.
 
 ## Next action
 
-You: copy the changed files over your working copy (paths are in chat), run `npm ci` then `npm run check`, paste the output, and reply `start task 2`. `npm run check` is the first run of `knip` since Task 0.
+You: copy the changed files over your working copy (paths are in chat), run `npm ci` then `npm run check`, paste the output, and reply `start task 3`. `npm run check` is the first run of `knip` since Task 0.

@@ -3,3 +3,4 @@ out/
 .md2video-cache/
 test-results/
 playwright-report/
+*.zip

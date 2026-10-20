@@ -58,8 +58,9 @@ A **living inventory** of every file in the repository. It is updated in the sam
 | `src/cli.ts` | shared | Command parsing, exit codes, build summary | planned | - | C1-C7 |
 | `src/parse/index.ts` | parse | `parse(markdown, ctx): Deck` | exists | 2026-10-07 | P1-P8, S1-S10 |
 | `src/parse/frontmatter.ts` | parse | YAML-only frontmatter loading and validation | exists | 2026-10-07 | P1-P8, S1-S10 |
+| `src/parse/heading.ts` | parse | Scene heading split into title and `{key=value}` attributes, with validation | exists | 2026-10-07 | P3, P4 |
 | `src/parse/blocks.ts` | parse | Directive extraction and per-block validation | planned | - | P1-P8, S1-S10 |
-| `src/parse/schema.ts` | parse | Frontmatter rules and defaults, theme defaults, allowed attributes and animation names per element | exists | 2026-10-07 | P1-P8, S1-S10 |
+| `src/parse/schema.ts` | parse | Frontmatter rules and defaults, theme defaults, valid names per animation place | exists | 2026-10-07 | P1-P8, S1-S10 |
 | `src/parse/assets.ts` | parse | Asset path containment and file type checks | planned | - | P1-P8, S1-S10 |
 | `src/narrate/index.ts` | narrate | `narrate(deck, voice)` | planned | - | N1-N6, S12-S16 |
 | `src/narrate/piper.ts` | narrate | Piper voice adapter (separate process, array arguments) | planned | - | N1-N6, S12-S16 |
@@ -146,6 +147,7 @@ Newest first. One line per change to the repository's file set.
 
 | Date | Change | Files |
 |---|---|---|
+| 2026-10-07 | Task 2 heading attributes: `entrance`, `emphasis`, `transition`, `bg` and `hold` read from the heading, with the valid names listed in every error. The parser lives in its own file instead of `blocks.ts`, which now only holds block validation (Task 3) | `src/parse/heading.ts`, `src/parse/schema.ts`, `src/parse/index.ts`, `tests/unit/parse.test.ts`, `docs/PLAN.md`, `docs/USAGE.md`, `docs/CHECKLIST.md`, `docs/FILES.md`, `docs/PROGRESS.md` |
 | 2026-10-07 | Task 1 parse: scenes, narration and frontmatter with line-numbered errors, and the parse seam tests. Added the five parser dependencies (exact pins) and `src` to the TypeScript project | `src/types.ts`, `src/parse/index.ts`, `src/parse/frontmatter.ts`, `src/parse/schema.ts`, `tests/unit/parse.test.ts`, `package.json`, `package-lock.json`, `tsconfig.json`, `docs/USAGE.md`, `docs/FILES.md`, `docs/PROGRESS.md` |
 | 2026-10-07 | Task 0 scaffold: tooling pinned, `npm run check` chain, inventory check with its test, resource limits. `knip.json` deferred to Task 8 (knip passes on defaults). Moved the three theme files into `styles/themes/` to match SPEC | `package.json`, `package-lock.json`, `.nvmrc`, `.gitignore`, `tsconfig.json`, `eslint.config.js`, `vitest.config.ts`, `scripts/check-files.ts`, `tests/unit/check-files.test.ts`, `config/limits.json` |
 | 2026-10-07 | Wrote the implementation plan and listed the extra test and script files it needs | `docs/PLAN.md`, `tests/unit/narrate.test.ts` (planned), `tests/unit/cli.test.ts` (planned), `scripts/check-coverage.ts` (planned), `docs/FILES.md`, `docs/PROGRESS.md`, `README.md` |
