@@ -31,6 +31,8 @@ Last updated: 2026-10-07
 - 2026-10-07: Task 2 heading attributes, test-first. Tests are generated from `HEADING_NAMES` in `schema.ts`: every valid name accepted, a name from another place rejected with that place's valid names listed (P4), plus `hold` range, unknown, repeated and malformed attributes. P2 and P6 ticked in CHECKLIST. P3 and P4 stay open for the block half (Task 3). Deviation from PLAN: the heading parser is `src/parse/heading.ts`, not `blocks.ts`, because `blocks.ts` is for blocks. PLAN updated. `HEADING_NAMES` includes `none` where USAGE allows it, so the Task 15 coverage check must skip `none`.
 - 2026-10-07: Verification in the sandbox after Task 2: `tsc`, `eslint --max-warnings 0` and `vitest run` (90 tests) pass. `knip` still cannot run here.
 
+- 2026-10-20: Node 22 to 26. `.nvmrc` and `engines` were already on 26. Moved `@types/node` to 26.6.5 and the Node requirement in USAGE and PLAN. On Node 26.12.0 in the sandbox: `tsc`, `eslint --max-warnings 0`, `vitest run` (90 tests), `check:files` and `npm audit` pass. `knip` still cannot run here (buffer allocation failure).
+
 ## Next action
 
 You: copy the changed files over your working copy (paths are in chat), run `npm ci` then `npm run check`, paste the output, and reply `start task 3`. `npm run check` is the first run of `knip` since Task 0.

@@ -16,7 +16,7 @@ How to go from an idea to an MP4. This file is the **single definition** of the 
 
 | Need | Detail |
 |---|---|
-| Node.js | 22 or newer |
+| Node.js | 26.10 or newer |
 | Python | 3.9 or newer, only for the voice engine |
 | FFmpeg | on the path, used for probing and mixing |
 | Browser | Remotion downloads a headless Chromium on first run |

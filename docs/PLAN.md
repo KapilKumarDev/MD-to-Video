@@ -42,7 +42,7 @@ class ScriptError extends Error { file: string; line: number }
 
 ## Global constraints
 
-Node 22 (`.nvmrc`). TypeScript strict. No inline `style` props, no raw hex in components, colors only from `styles/` tokens. Every module reached only through its `index.ts`. Limits in `config/limits.json` (S19). No shell: child processes use argument arrays (S13).
+Node 26 (`.nvmrc`). TypeScript strict. No inline `style` props, no raw hex in components, colors only from `styles/` tokens. Every module reached only through its `index.ts`. Limits in `config/limits.json` (S19). No shell: child processes use argument arrays (S13).
 
 ## Review focus
 
