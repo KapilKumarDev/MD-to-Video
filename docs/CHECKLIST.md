@@ -6,13 +6,13 @@ Item format: `ID` description, then **verify:** the exact check. IDs `S` and `O`
 
 ## 1. Parse (seam 1)
 
-- [ ] **P1** A valid script produces a `Deck` with the expected scenes, blocks and attributes. verify: `npm test -- parse`
+- [x] **P1** A valid script produces a `Deck` with the expected scenes, blocks and attributes. verify: `npm test -- parse`
 - [x] **P2** Every frontmatter key in [USAGE 4.1](USAGE.md) is accepted with valid values and rejected with invalid ones, including defaults when omitted. verify: parse tests, one per key
-- [ ] **P3** Every heading attribute and every block attribute in [USAGE 4.2 to 4.3](USAGE.md) has a valid and an invalid test. verify: parse tests generated from `schema.ts`, so schema and tests cannot drift
-- [ ] **P4** An animation name used in the wrong place fails and the message lists the valid names for that place (table 4.4). verify: one test per element type
+- [x] **P3** Every heading attribute and every block attribute in [USAGE 4.2 to 4.3](USAGE.md) has a valid and an invalid test. verify: parse tests generated from `schema.ts`, so schema and tests cannot drift
+- [x] **P4** An animation name used in the wrong place fails and the message lists the valid names for that place (table 4.4). verify: one test per element type
 - [ ] **P5** Every error includes file name and line number. verify: tests assert the line in the message
 - [x] **P6** A silent scene without `hold` fails. verify: parse test
-- [ ] **P7** Unknown directive, unknown frontmatter key, `#` heading and missing `alt` each fail with a clear message. verify: parse tests
+- [x] **P7** Unknown directive, unknown frontmatter key, `#` heading and missing `alt` each fail with a clear message. verify: parse tests
 - [ ] **P8** Parse does not read or write anything outside the script file and its assets. verify: test with a read-only temp folder
 
 ## 2. Narration (seam 3 via e2e, plus fake adapter in timeline tests)

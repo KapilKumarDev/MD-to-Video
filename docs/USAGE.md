@@ -116,12 +116,12 @@ Q2,19
 | `anim` | bar: `grow-bars`; line: `line-draw`; pie: `pie-sweep`; ring: `progress-ring`; counter: `counter-tick` |
 | `title` | optional caption |
 
-`ring` and `counter` take a single data row. `ring` value is 0 to 100. Colors never carry meaning alone; labels are always drawn.
+`type` is required. `anim` is optional: it defaults to the animation of the type, and any other name fails. The body is exactly two columns, `label,value`. Labels are at most 40 characters with no commas or quotes, values are plain numbers (no exponents), and there are at most 200 rows. `line` needs 2 rows or more, `pie` values must not be negative and must not all be 0, `ring` and `counter` take a single data row, and a `ring` value is 0 to 100. Colors never carry meaning alone; labels are always drawn.
 
 #### code
 
 ```md
-:::code{lang=python anim=line-by-line highlight=2-3}
+:::code{lang=python anim=line-by-line highlight=2}
 def greet(name):
     return f"hello {name}"
 :::
@@ -131,9 +131,9 @@ def greet(name):
 |---|---|
 | `lang` | any language `shiki` knows. Required |
 | `anim` | `line-by-line`, `diff`, `typing` |
-| `highlight` | line numbers or ranges, e.g. `2` or `2-3` |
+| `highlight` | line numbers or ranges, comma separated, e.g. `2`, `2-3` or `1,3-4`. Must lie inside the code |
 
-For `diff`, prefix removed lines with `-` and added lines with `+`. Code is only displayed, never run.
+`anim` defaults to `line-by-line`. For `diff`, prefix removed lines with `-` and added lines with `+`; at least one is required. Code is at most 150 lines and is only displayed, never run.
 
 #### list
 
@@ -144,7 +144,7 @@ For `diff`, prefix removed lines with `-` and added lines with `+`. Code is only
 :::
 ```
 
-`anim`: `stagger` or `card-stack`. Maximum 6 items so each stays readable.
+`anim`: `stagger` (default) or `card-stack`. Maximum 6 items so each stays readable. Items are plain text: bold, links and code marks are dropped, and nested lists are rejected.
 
 #### image
 
@@ -153,7 +153,7 @@ For `diff`, prefix removed lines with `-` and added lines with `+`. Code is only
 :::
 ```
 
-`src` is png, jpg or webp. `alt` is required. `anim`: `parallax`, `zoom-focus`, `flip`, `scale-pop`. SVG files are not allowed here; use `path`.
+`src` is png, jpg or webp. `alt` is required. `anim`: `parallax` (default), `zoom-focus`, `flip`, `scale-pop`. SVG files are not allowed here; use `path`.
 
 #### flow
 
@@ -164,7 +164,7 @@ Server -> Cache
 :::
 ```
 
-Each unique name becomes a node. Nodes appear in order of first mention, edges draw as they are reached. `anim`: `node-by-node`.
+Each name is at most 40 characters and each line needs at least two names. Each unique name becomes a node. Nodes appear in order of first mention, edges draw as they are reached. `anim`: `node-by-node`.
 
 #### path
 
@@ -189,7 +189,11 @@ Only the outline paths inside the SVG are read and drawn. Scripts, text and imag
 | `image` | Layout | `parallax`, `zoom-focus`, `flip`, `scale-pop` |
 | `flow`, `path` | Diagrams | `node-by-node`, `path-draw` |
 
-A name used in the wrong place fails the check and the message lists the valid names for that place.
+A name used in the wrong place fails the check and the message lists the valid names for that place. When `anim` is left out, the default is the first name listed for that block (for `chart`, the one that matches its `type`).
+
+Attributes on a block follow the same rules as on a heading: an unknown or repeated key fails, and `[label]` is not accepted.
+
+Colons in narration, titles and list items, such as `10:30`, are kept as written.
 
 ### 4.5 Writing narration that sounds right
 

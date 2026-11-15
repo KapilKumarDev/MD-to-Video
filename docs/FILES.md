@@ -19,8 +19,8 @@ A **living inventory** of every file in the repository. It is updated in the sam
 | Path | Module | Job | Status | Last change | Verified by |
 |---|---|---|---|---|---|
 | `README.md` | root | Entry point and doc index | exists | 2026-10-07 | D1-D4 |
-| `package.json` | root | Dependencies (pinned) and scripts | exists | 2026-10-07 | H1-H8 |
-| `package-lock.json` | root | Exact dependency tree | exists | 2026-10-07 | H1-H8 |
+| `package.json` | root | Dependencies (pinned) and scripts | exists | 2026-11-15 | H1-H8 |
+| `package-lock.json` | root | Exact dependency tree | exists | 2026-11-15 | H1-H8 |
 | `.nvmrc` | root | Node version | exists | 2026-10-07 | H1-H8 |
 | `.gitignore` | root | Excludes `node_modules`, `out`, `.md2video-cache`, test output | exists | 2026-10-07 | H1-H8 |
 | `tsconfig.json` | root | TypeScript settings, strict mode, covers `src`, `scripts` and `tests` | exists | 2026-10-07 | H1-H8 |
@@ -35,32 +35,32 @@ A **living inventory** of every file in the repository. It is updated in the sam
 | Path | Module | Job | Status | Last change | Verified by |
 |---|---|---|---|---|---|
 | `docs/SPEC.md` | docs | Design and decisions | exists | 2026-10-07 | D1-D4 |
-| `docs/USAGE.md` | docs | User guide and the markdown format | exists | 2026-10-07 | D1-D4 |
-| `docs/PLAN.md` | docs | Implementation plan: decisions, seams, tasks | exists | 2026-10-07 | D1-D4 |
-| `docs/PROGRESS.md` | docs | Stage tracker and log | exists | 2026-10-07 | D1-D4 |
-| `docs/CHECKLIST.md` | docs | Acceptance criteria | exists | 2026-10-07 | D1-D4 |
+| `docs/USAGE.md` | docs | User guide and the markdown format | exists | 2026-11-15 | D1-D4 |
+| `docs/PLAN.md` | docs | Implementation plan: decisions, seams, tasks | exists | 2026-11-15 | D1-D4 |
+| `docs/PROGRESS.md` | docs | Stage tracker and log | exists | 2026-11-15 | D1-D4 |
+| `docs/CHECKLIST.md` | docs | Acceptance criteria | exists | 2026-11-15 | D1-D4 |
 | `docs/OPTIMIZATIONS.md` | docs | Performance budgets and techniques | exists | 2026-10-07 | D1-D4 |
-| `docs/SECURITY.md` | docs | Threat model and controls | exists | 2026-10-07 | D1-D4 |
-| `docs/FILES.md` | docs | This map | exists | 2026-10-07 | D1-D4 |
+| `docs/SECURITY.md` | docs | Threat model and controls | exists | 2026-11-15 | D1-D4 |
+| `docs/FILES.md` | docs | This map | exists | 2026-11-15 | D1-D4 |
 
 ### config/
 
 | Path | Module | Job | Status | Last change | Verified by |
 |---|---|---|---|---|---|
 | `config/voices.json` | config | Allowed voices: id, download URL, SHA-256 | planned | - | S16, S19 |
-| `config/limits.json` | config | Resource limits used by the parser and CLI | exists | 2026-10-07 | S16, S19 |
+| `config/limits.json` | config | Resource limits used by the parser and CLI | exists | 2026-11-15 | S16, S19 |
 
 ### src/
 
 | Path | Module | Job | Status | Last change | Verified by |
 |---|---|---|---|---|---|
-| `src/types.ts` | shared | `Deck`, `Scene`, `Block`, `NarratedDeck`, `Timeline`, `ScriptError` | exists | 2026-10-07 | C1-C7 |
+| `src/types.ts` | shared | `Deck`, `Scene`, `Block`, `NarratedDeck`, `Timeline`, `ScriptError` | exists | 2026-11-15 | C1-C7 |
 | `src/cli.ts` | shared | Command parsing, exit codes, build summary | planned | - | C1-C7 |
-| `src/parse/index.ts` | parse | `parse(markdown, ctx): Deck` | exists | 2026-10-07 | P1-P8, S1-S10 |
+| `src/parse/index.ts` | parse | `parse(markdown, ctx): Deck` | exists | 2026-11-15 | P1-P8, S1-S10 |
 | `src/parse/frontmatter.ts` | parse | YAML-only frontmatter loading and validation | exists | 2026-10-07 | P1-P8, S1-S10 |
 | `src/parse/heading.ts` | parse | Scene heading split into title and `{key=value}` attributes, with validation | exists | 2026-10-07 | P3, P4 |
-| `src/parse/blocks.ts` | parse | Directive extraction and per-block validation | planned | - | P1-P8, S1-S10 |
-| `src/parse/schema.ts` | parse | Frontmatter rules and defaults, theme defaults, valid names per animation place | exists | 2026-10-07 | P1-P8, S1-S10 |
+| `src/parse/blocks.ts` | parse | `:::` block validation and normalization, and text restoration for colon text | exists | 2026-11-15 | P1, P3, P4, P7, S4, S5 |
+| `src/parse/schema.ts` | parse | Frontmatter rules and defaults, theme defaults, valid names per animation place | exists | 2026-11-15 | P1-P8, S1-S10 |
 | `src/parse/assets.ts` | parse | Asset path containment and file type checks | planned | - | P1-P8, S1-S10 |
 | `src/narrate/index.ts` | narrate | `narrate(deck, voice)` | planned | - | N1-N6, S12-S16 |
 | `src/narrate/piper.ts` | narrate | Piper voice adapter (separate process, array arguments) | planned | - | N1-N6, S12-S16 |
@@ -121,7 +121,7 @@ A **living inventory** of every file in the repository. It is updated in the sam
 
 | Path | Module | Job | Status | Last change | Verified by |
 |---|---|---|---|---|---|
-| `tests/unit/parse.test.ts` | tests | Parse seam: valid decks and every error case | exists | 2026-10-07 | H1, R3 |
+| `tests/unit/parse.test.ts` | tests | Parse seam: valid decks and every error case | exists | 2026-11-15 | H1, R3 |
 | `tests/unit/parse-security.test.ts` | tests | Hostile inputs: raw HTML, `---js` frontmatter, `../` paths, remote URLs, oversized input | planned | - | H1, R3 |
 | `tests/unit/timeline.test.ts` | tests | Timeline seam: frame counts and transition overlap | planned | - | H1, R3 |
 | `tests/unit/voices.test.ts` | tests | Checksum verification fails closed | planned | - | H1, R3 |
@@ -147,6 +147,7 @@ Newest first. One line per change to the repository's file set.
 
 | Date | Change | Files |
 |---|---|---|
+| 2026-11-15 | Task 3 blocks: `chart`, `code`, `list`, `image`, `flow`, `path` validated and normalized with line-numbered errors. Added `remark-directive` and `shiki`. Dev tools updated and `minimatch` overridden to clear `npm audit`. Fixed the USAGE `highlight` example | `src/parse/blocks.ts`, `src/parse/index.ts`, `src/parse/schema.ts`, `src/types.ts`, `config/limits.json`, `tests/unit/parse.test.ts`, `package.json`, `package-lock.json`, `docs/USAGE.md`, `docs/SECURITY.md`, `docs/CHECKLIST.md`, `docs/PLAN.md`, `docs/PROGRESS.md`, `docs/FILES.md` |
 | 2026-10-20 | Node 22 to 26: `@types/node` 22.20.5 to 26.6.5 (`.nvmrc` and `engines` were already 26), Node requirement in USAGE and PLAN. Verified on Node 26.12.0 | `package.json`, `package-lock.json`, `docs/USAGE.md`, `docs/PLAN.md`, `docs/FILES.md`, `docs/PROGRESS.md` |
 | 2026-10-07 | Task 2 heading attributes: `entrance`, `emphasis`, `transition`, `bg` and `hold` read from the heading, with the valid names listed in every error. The parser lives in its own file instead of `blocks.ts`, which now only holds block validation (Task 3) | `src/parse/heading.ts`, `src/parse/schema.ts`, `src/parse/index.ts`, `tests/unit/parse.test.ts`, `docs/PLAN.md`, `docs/USAGE.md`, `docs/CHECKLIST.md`, `docs/FILES.md`, `docs/PROGRESS.md` |
 | 2026-10-07 | Task 1 parse: scenes, narration and frontmatter with line-numbered errors, and the parse seam tests. Added the five parser dependencies (exact pins) and `src` to the TypeScript project | `src/types.ts`, `src/parse/index.ts`, `src/parse/frontmatter.ts`, `src/parse/schema.ts`, `tests/unit/parse.test.ts`, `package.json`, `package-lock.json`, `tsconfig.json`, `docs/USAGE.md`, `docs/FILES.md`, `docs/PROGRESS.md` |

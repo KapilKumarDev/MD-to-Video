@@ -1,6 +1,6 @@
 # Progress
 
-Last updated: 2026-10-07
+Last updated: 2026-11-15
 
 ## Workflow stages
 
@@ -9,8 +9,8 @@ Last updated: 2026-10-07
 | 1 | Research | done (Remotion audio and license, Piper status, sandbox limits) |
 | 2 | Plan | done (this docs set). SPEC approved 2026-10-07. [PLAN](PLAN.md) written, waiting on your review |
 | 3 | Design | done (tokens and themes approved 2026-10-07) |
-| 4 | Implement | in progress: Tasks 0 to 2 done, Task 3 not started |
-| 5 | Test | in progress: 90 unit tests green (5 inventory, 85 parse), `npm audit` clean. `knip` has not run since Task 0 (sandbox cannot run it) |
+| 4 | Implement | in progress: Tasks 0 to 3 done, Task 4 not started |
+| 5 | Test | in progress: 219 unit tests green (5 inventory, 214 parse), `npm audit` clean. `knip` has not run since Task 0 (sandbox cannot run it) |
 | 6 | Fix | not started |
 | 7 | Repeat | not started |
 | 8 | Present | not started |
@@ -33,6 +33,9 @@ Last updated: 2026-10-07
 
 - 2026-10-20: Node 22 to 26. `.nvmrc` and `engines` were already on 26. Moved `@types/node` to 26.6.5 and the Node requirement in USAGE and PLAN. On Node 26.12.0 in the sandbox: `tsc`, `eslint --max-warnings 0`, `vitest run` (90 tests), `check:files` and `npm audit` pass. `knip` still cannot run here (buffer allocation failure).
 
+- 2026-11-15: Task 3 blocks, test-first. Added `remark-directive` 4.0.0 and `shiki` 4.6.0 (exact). New `src/parse/blocks.ts` validates the six blocks; bodies are stored normalized (CSV rows trimmed, list items as plain text, flow chains with single spaces, code verbatim). Ticked P1, P3, P4, P7. Found and fixed: the USAGE `highlight=2-3` example had only 2 code lines (now `highlight=2`), and markdown reads `10:30` as a directive and drops it, so text directives are turned back into the text that was written. Decisions beyond the plan: `anim` is optional with a default (first listed name, or the one matching the chart `type`); `highlight` accepts comma lists; labels and flow nodes are limited to 40 characters (`labelChars` in `limits.json`, S19); a `diff` block needs at least one `+` or `-` line; `src` and `alt` only checked for presence here, and `src` file type and containment stay in Task 4. Also cleared `npm audit`: updated eslint, knip, typescript-eslint, vitest, `@types/node` and added a `minimatch` 11.0.8 override (the typescript-eslint chain still asks for 10).
+- 2026-11-15: Verification in the sandbox (Node 22.23.4, `engines` asks for 26): `tsc`, `eslint --max-warnings 0`, `vitest run` (219 tests), `check:files` and `npm audit` pass. `knip` still cannot run here.
+
 ## Next action
 
-You: copy the changed files over your working copy (paths are in chat), run `npm ci` then `npm run check`, paste the output, and reply `start task 3`. `npm run check` is the first run of `knip` since Task 0.
+You: copy the changed files over your working copy (paths are in chat), run `npm ci` then `npm run check`, paste the output, and reply `start task 4`. `npm run check` is the first run of `knip` since Task 0; expect it to ask for `knip.json` only if it reports `config/limits.json` or `shiki` usage wrongly.

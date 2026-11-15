@@ -1,17 +1,16 @@
-import type { RootContent } from 'mdast';
 import { toString } from 'mdast-util-to-string';
+import remarkDirective from 'remark-directive';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkParse from 'remark-parse';
 import { unified } from 'unified';
 import { ScriptError } from '../types.ts';
 import type { Deck, Scene } from '../types.ts';
+import { lineOf, parseBlock, restoreInlineText } from './blocks.ts';
 import { loadMeta } from './frontmatter.ts';
 import { parseHeading } from './heading.ts';
 import { DEFAULT_EMPHASIS, THEME_DEFAULTS } from './schema.ts';
 
-const processor = unified().use(remarkParse).use(remarkFrontmatter, ['yaml']);
-
-const lineOf = (node: RootContent): number => node.position?.start.line ?? 1;
+const processor = unified().use(remarkParse).use(remarkFrontmatter, ['yaml']).use(remarkDirective);
 
 export function parse(markdown: string, ctx: { file: string; root: string }): Deck {
   const fail = (line: number, problem: string): never => {
@@ -19,7 +18,11 @@ export function parse(markdown: string, ctx: { file: string; root: string }): De
   };
   if (markdown.trim() === '') fail(1, 'script is empty');
 
-  const children = processor.parse(markdown).children;
+  const text = markdown.replace(/^\uFEFF/, '');
+  const source = text.split(/\r\n|\r|\n/);
+  const tree = processor.parse(text);
+  restoreInlineText(tree, text);
+  const children = tree.children;
   const first = children[0];
   const frontmatter =
     first?.type === 'yaml' ? { yaml: first.value, fenceLine: lineOf(first) } : undefined;
@@ -36,6 +39,11 @@ export function parse(markdown: string, ctx: { file: string; root: string }): De
   for (const node of frontmatter ? children.slice(1) : children) {
     const line = lineOf(node);
     const scene = scenes.at(-1);
+    if (node.type === 'containerDirective') {
+      const owner = scene ?? fail(line, 'block before the first scene; start every scene with a "##" heading');
+      owner.blocks.push(parseBlock(node, source, fail));
+      continue;
+    }
     if (node.type === 'heading') {
       if (node.depth === 1) {
         fail(line, '"#" headings are not scenes; set the video title with "title" in the frontmatter');

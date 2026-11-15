@@ -71,6 +71,7 @@ Defaults live in `config/limits.json`. They are tunable but always enforced.
 | S19 | Narration characters per scene / per script | 3,000 / 100,000 |
 | S19 | CSV rows per chart | 200 |
 | S19 | Code lines per block | 150 |
+| S19 | Characters per chart label and flow node | 40 |
 | S19 | List items per list | 6 |
 | S19 | Image file size / pixel dimensions | 20 MB / 8,000 x 8,000 |
 | S19 | Music file size / duration | 50 MB / 1 hour |

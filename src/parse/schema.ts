@@ -34,6 +34,35 @@ export const HEADING_NAMES = {
   bg: ['gradient-drift', 'particles', 'grid-pulse', 'waveform', 'none'],
 } as const;
 
+/** Chart types, each with the one animation that draws it (USAGE 4.3). */
+export const CHART_ANIM = {
+  bar: 'grow-bars',
+  line: 'line-draw',
+  pie: 'pie-sweep',
+  ring: 'progress-ring',
+  counter: 'counter-tick',
+} as const;
+
+/** The one list of valid animation names per block kind (USAGE 4.4). The first name is the default. */
+export const BLOCK_ANIMS = {
+  chart: Object.values(CHART_ANIM),
+  code: ['line-by-line', 'diff', 'typing'],
+  list: ['stagger', 'card-stack'],
+  image: ['parallax', 'zoom-focus', 'flip', 'scale-pop'],
+  flow: ['node-by-node'],
+  path: ['path-draw'],
+} as const;
+
+/** Attributes per block kind, in the order USAGE lists them. `true` means required. */
+export const BLOCK_ATTRIBUTES = {
+  chart: { type: true, anim: false, title: false },
+  code: { lang: true, anim: false, highlight: false },
+  list: { anim: false },
+  image: { src: true, alt: true, anim: false },
+  flow: { anim: false },
+  path: { src: true, anim: false },
+} as const;
+
 /** Allowed `hold` length in seconds (USAGE 4.2). */
 export const HOLD_SECONDS = { min: 1, max: 60 } as const;
 

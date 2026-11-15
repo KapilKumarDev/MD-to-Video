@@ -78,7 +78,7 @@ Inputs the spec implies but no checklist item pins. Each gets a test in the task
 - [ ] Implement: one small function parses the trailing `{key=value}` group of the heading text. `remark-directive` is used only for `:::` blocks (Task 3).
 
 ### Task 3: Blocks (P3, P4, S4, S5)
-**Files:** modify `parse/blocks.ts`, `schema.ts`; tests.
+**Files:** create `parse/blocks.ts`; modify `parse/index.ts`, `schema.ts`, `types.ts`, `config/limits.json`; tests. Done: bodies are normalized in `parse` (see `Block` in `types.ts`), `anim` is optional with a default, and `remark-directive` text directives such as `10:30` are turned back into text.
 - [ ] One failing test per block type with a valid and an invalid attribute set (`chart`, `code`, `list`, `image`, `flow`, `path`).
 - [ ] CSV: only numbers and short labels. 200-row cap. `ring` takes one row, 0 to 100.
 - [ ] `code`: `lang` must be in shiki's `bundledLanguages`. `diff` lines need `+` or `-`.

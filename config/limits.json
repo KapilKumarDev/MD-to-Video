@@ -4,6 +4,7 @@
   "narrationCharsPerScene": 3000,
   "narrationCharsPerScript": 100000,
   "csvRows": 200,
+  "labelChars": 40,
   "codeLines": 150,
   "listItems": 6,
   "imageBytes": 20971520,

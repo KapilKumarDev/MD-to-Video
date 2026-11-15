@@ -10,7 +10,12 @@ export interface Meta {
   pad: number;
 }
 
-interface Block {
+/**
+ * One visual block, validated and normalized by `parse`. `body` is the code verbatim for `code`, the
+ * trimmed `label,value` rows for `chart`, one chain per line for `flow`, one plain-text item per
+ * line for `list`, and empty for `image` and `path`.
+ */
+export interface Block {
   kind: 'chart' | 'code' | 'list' | 'image' | 'flow' | 'path';
   line: number;
   attrs: Record<string, string | number>;
